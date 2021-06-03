@@ -10,6 +10,11 @@ class EmailsController < ApplicationController
   # GET /emails/1
   # GET /emails/1.json
   def show
+    @email = Email.find(params[:id])
+    respond_to do |format|
+      format.html { }
+      format.js { }
+    end
   end
 
   # GET /emails/new
@@ -24,16 +29,10 @@ class EmailsController < ApplicationController
   # POST /emails
   # POST /emails.json
   def create
-    @email = Email.new(email_params)
-
+    @email = Email.create(object: Faker::Book.title, body: Faker::Lorem.paragraphs(number:2, supplemental: true))
     respond_to do |format|
-      if @email.save
-        format.html { redirect_to @email, notice: 'Email was successfully created.' }
-        format.json { render :show, status: :created, location: @email }
-      else
-        format.html { render :new }
-        format.json { render json: @email.errors, status: :unprocessable_entity }
-      end
+      format.html { redirect_to emails_path }
+      format.js { }
     end
   end
 
@@ -71,4 +70,4 @@ class EmailsController < ApplicationController
     def email_params
       params.require(:email).permit(:object, :body)
     end
-end
+  end

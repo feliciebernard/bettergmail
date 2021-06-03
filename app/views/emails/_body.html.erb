@@ -1,0 +1,17 @@
+
+ <h2> <strong><%= @email.object %></strong></h2>
+  
+
+<p>
+  <%= @email.body %>
+</p>
+
+<table class="table caption-top">
+<tr>
+            <th scope="col"><%= button_to "Supprimer", emails_path, method: "post", action: "create", class:"btn btn-outline-danger"%></th>
+            <th scope="col"><%= button_to "Marquer non lu", emails_path, method: "post", action: "create", class:"btn btn-outline-primary"%></th>
+          </tr>
+</table>
+
+
+
