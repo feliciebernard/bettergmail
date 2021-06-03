@@ -2,23 +2,27 @@
 <div class = "container-fluid">
   <%= button_to "Recevoir un Email", emails_path, method: "post", action: "create", class:"btn btn-outline-success", remote: true %>
 
-      <table class="table caption-top">
-        <thead>
-          <tr>
-            <th scope="col-md-2">#</th>
-            <th scope="col-sm-5">Liste des Emails</th>
-            <th scope="col-sm-5">Email Selectionné</th>
-          </tr>
-        </thead>
-        <tbody id="email_object">
-          <% @emails.each do |email| %>
-          <tr>
-            <th><%= email.id%></th>
-            <td><%= link_to email.object, email, remote: true%></td>
-            <td id="email_open"></th>
-              <%end%>
-            </tr>
-          </tbody>
-        </table>
+  <table class="table caption-top">
+    <thead>
+      <tr>
+        <th scope="col-md-2">#</th>
+        <th scope="col-sm-5">Liste des Emails</th>
+        <th scope="col-sm-5">Email Selectionné</th>
+      </tr>
+    </thead>
+    <tbody id="email_object">
+      <% @emails.each do |email| %>
+      <tr>
+        <th><%= email.id%></th>
+        <% if email.read == false %>
+        <td><strong><%= link_to email.object, email, remote: true%></strong></td>
+        <%else %>
+        <td><%= link_to email.object, email, remote: true%></td>
+        <%end%>
+        <td id="email_open"></th>
+          <%end%>
+        </tr>
+      </tbody>
+    </table>
 
   </div>

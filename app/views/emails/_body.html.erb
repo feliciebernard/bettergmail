@@ -1,16 +1,22 @@
 
- <h2> <strong><%= @email.object %></strong></h2>
-  
+<h2> <strong><%= @email.object %></strong></h2>
+
 
 <p>
   <%= @email.body %>
 </p>
 
 <table class="table caption-top">
-<tr>
-            <th scope="col"><%= button_to "Supprimer", emails_path, method: "post", action: "create", class:"btn btn-outline-danger"%></th>
-            <th scope="col"><%= button_to "Marquer non lu", emails_path, method: "post", action: "create", class:"btn btn-outline-primary"%></th>
-          </tr>
+  <tr>
+    <th id="delete_email" scope="col"><%= button_to "Supprimer", email_path(email), method: "delete", remote: true, class:"btn btn-outline-danger"%></th>
+
+    <% if email.read == false%>
+        <th scope="col"><%= button_to "Marquer comme lu", email_path, method: "put", action: "update", remote: true, class: "btn btn-outline-success"%></th>
+      <%else%>
+          <th scope="col"><%= button_to "Marquer non lu", email_path, method: "put", action: "update", remote: true, class: "btn btn-outline-warning"%></th>
+      <%end%>
+
+  </tr>
 </table>
 
 

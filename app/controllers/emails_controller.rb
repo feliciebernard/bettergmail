@@ -29,7 +29,7 @@ class EmailsController < ApplicationController
   # POST /emails
   # POST /emails.json
   def create
-    @email = Email.create(object: Faker::Book.title, body: Faker::Lorem.paragraphs(number:2, supplemental: true))
+    @email = Email.create(object: Faker::Book.title, body: Faker::Lorem.paragraphs(number:2, supplemental: true), read: false)
     respond_to do |format|
       format.html { redirect_to emails_path }
       format.js { }
@@ -41,7 +41,7 @@ class EmailsController < ApplicationController
   def update
     respond_to do |format|
       if @email.update(email_params)
-        format.html { redirect_to @email, notice: 'Email was successfully updated.' }
+        format.html { redirect_to emails_path, notice: 'Email was successfully updated.' }
         format.json { render :show, status: :ok, location: @email }
       else
         format.html { render :edit }
@@ -55,7 +55,7 @@ class EmailsController < ApplicationController
   def destroy
     @email.destroy
     respond_to do |format|
-      format.html { redirect_to emails_url, notice: 'Email was successfully destroyed.' }
+      format.html { redirect_to emails_path, notice: 'Email was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -68,6 +68,6 @@ class EmailsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def email_params
-      params.require(:email).permit(:object, :body)
+      params.require(:email).permit(:object, :body, :read)
     end
   end
